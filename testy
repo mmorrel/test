@@ -1,0 +1,73 @@
+{
+  "layer": [
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json",
+        "format": {
+          "type": "topojson",
+          "feature": "states"
+        }
+      },
+      "mark": {
+        "fill": "lightgray",
+        "type": "geoshape",
+        "stroke": "black"
+      }
+    },
+    {
+      "mark": "geoshape",
+      "width": "container",
+      "height": "container",
+      "encoding": {
+        "href": {
+          "type": "nominal",
+          "field": "url"
+        },
+        "color": {
+          "type": "quantitative",
+          "field": "users\\.count"
+        },
+        "shape": {
+          "type": "geojson",
+          "field": "geo"
+        },
+        "tooltip": [
+          {
+            "field": "users\\.state",
+            "title": "State"
+          },
+          {
+            "type": "quantitative",
+            "field": "users\\.count",
+            "title": "User Count"
+          }
+        ]
+      }
+    }
+  ],
+  "width": "container",
+  "height": "container",
+  "transform": [
+    {
+      "as": "geo",
+      "from": {
+        "key": "properties.name",
+        "data": {
+          "url": "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json",
+          "format": {
+            "type": "topojson",
+            "feature": "states"
+          }
+        }
+      },
+      "lookup": "users\\.state"
+    },
+    {
+      "as": "url",
+      "calculate": "'https://sandbox.proto.exploreomni.com/w/0a494c7e-3d8a-4f31-aa53-cb8d1e62f4fa/drill?ephemeral=DyXjRBEJ%2CRveZe1I6%2CZUK24UVr%2CHehug3WH%2CbuG0igrs%2CcNuuSY8a%2CnOHD__EL%2C3Dgpwy5c%2C0ta1FE8v%2CSsbC6Jdf&field=users.count&filters=%7B%7D&miniUuid=ZUK24UVr&row=%7B%22users.state%22%3A%22' + datum['users\\.state'] + '%22%2C%22state_id.state_id%22%3A%221%22%2C%22users.count%22%3A%221625%22%7D' "
+    }
+  ],
+  "projection": {
+    "type": "albersUsa"
+  }
+}
